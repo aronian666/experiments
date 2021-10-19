@@ -1,0 +1,146 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.6.16",
+        "version" : "2.0"
+    },
+    "extensionsUsed" : [
+        "KHR_draco_mesh_compression",
+        "KHR_texture_transform"
+    ],
+    "extensionsRequired" : [
+        "KHR_draco_mesh_compression",
+        "KHR_texture_transform"
+    ],
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "Plane"
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "Threads",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "extensions" : {
+                        "KHR_texture_transform" : {
+                            "offset" : [
+                                0.14000000059604645,
+                                0.06999996677041054
+                            ],
+                            "scale" : [
+                                0.6499999761581421,
+                                0.9000000357627869
+                            ]
+                        }
+                    },
+                    "index" : 0
+                },
+                "metallicFactor" : 0
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Plane.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "extensions" : {
+                        "KHR_draco_mesh_compression" : {
+                            "bufferView" : 0,
+                            "attributes" : {
+                                "POSITION" : 0,
+                                "NORMAL" : 1,
+                                "TEXCOORD_0" : 2
+                            }
+                        }
+                    },
+                    "indices" : 3,
+                    "material" : 0,
+                    "mode" : 4
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "sampler" : 0,
+            "source" : 0
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "lucy-m-KNMbRhf5IT8-unsplash",
+            "uri" : "lucy-m-KNMbRhf5IT8-unsplash.jpg"
+        }
+    ],
+    "accessors" : [
+        {
+            "componentType" : 5126,
+            "count" : 6054,
+            "max" : [
+                1.0000001192092896,
+                0,
+                5.000000953674316
+            ],
+            "min" : [
+                -1.0000001192092896,
+                0,
+                -5.000000476837158
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6054,
+            "type" : "VEC3"
+        },
+        {
+            "componentType" : 5126,
+            "count" : 6054,
+            "type" : "VEC2"
+        },
+        {
+            "componentType" : 5123,
+            "count" : 24576,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 8337,
+            "byteOffset" : 0
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9987,
+            "wrapS" : 33071,
+            "wrapT" : 33071
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 8340,
+            "uri" : "Rabbit.bin"
+        }
+    ]
+}

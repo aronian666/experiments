@@ -37,22 +37,19 @@
         ];
     };
     const cubeLoader = new CubeTextureLoader();
-    /*const environmentMap = cubeLoader.load(
+    const environmentMap = cubeLoader.load(
         genCubeUrls("textures/environmentMaps/2/", ".jpg"),
         (envMap) => {
             //lightProbe.copy(LightProbeGenerator.fromCubeTexture(envMap));
         }
-    );*/
-    //environmentMap.encoding = sRGBEncoding;
-    //scene.background = environmentMap;
-    scene.background = new Color("blue");
+    );
+    environmentMap.encoding = sRGBEncoding;
+    scene.background = environmentMap;
     const loader = new TextureLoader();
-    const vector = new Vector2(1, 1.7);
+    const vector = new Vector2(1, 1);
     vector.normalize();
     console.log(vector);
-    const image = loader.load(
-        "/images/florian-biedermann-y-puBc1azy4-unsplash.jpg"
-    );
+    const image = loader.load("/images/totoro.jpg");
     const vertexShader = `
         varying vec2 vUv;
         varying vec3 vPosition;
@@ -97,33 +94,36 @@
             vec3 color = vec3(sin(axisRotate.y * 20.0) * 3.0 + 3.5);
             return color;
         }
-        vec2 threadsAxis(vec2 axis) {
-            float newy = abs(mod(axis.x, 2.0) - 1.0);
-            return  mod(vec2(axis.x, newy + axis.y), vec2(1.0));
-        }
         void main(){
             vec2 axis = vUv * scale;
-            vec2 threadAxis = threadsAxis(axis);
+            float newy = abs(mod(axis.x, 2.0) - 1.0);
+            vec2 pingPong = vec2(axis.x, newy + axis.y);
+            vec2 snap = floor(pingPong);
+            vec2 divide = snap / scale;
+            vec4 imageTexture = texture2D(image, divide);
+            vec2 threadAxis =  fract(pingPong);
             vec3 linesRotate = lines(threadAxis, axis);
             vec3 threadsShape = vec3(1.0 - pow(length(threadAxis - 0.5), 2.0));
             vec3 color = colorBurn(threadsShape, facColorBurn);
-            color = colorDodge(color, facColorDodge);
-            gl_FragColor = vec4(linesRotate * color , 1.0);
+            vec3 alpha = colorDodge(color, 0.99);
+            color = clamp(colorDodge(color, facColorDodge) * linesRotate, vec3(0.0), vec3(1.0));
+            gl_FragColor = imageTexture * vec4(color, alpha.x);
+            //gl_FragColor = vec4(color, 1.0);
         }
     `;
     const plane = new Mesh(
-        new PlaneBufferGeometry(1, 1.5),
+        new PlaneBufferGeometry(1, 1),
         new ShaderMaterial({
             vertexShader,
             fragmentShader,
             side: DoubleSide,
             uniforms: {
-                facColorBurn: { value: 0.4, type: "f" },
+                facColorBurn: { value: 0.32, type: "f" },
                 image: { value: image, type: "t" },
                 scale: { value: 5, type: "f" },
                 x: { value: 0, type: "f" },
                 facColorDodge: { value: 0.1, type: "f" },
-                angle: { value: 2.14, type: "f" },
+                angle: { value: 4.45, type: "f" },
             },
             transparent: true,
         })

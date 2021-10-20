@@ -128,10 +128,6 @@
             transparent: true,
         })
     );
-    const newUv = new Float32Array([
-        0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0,
-        0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0,
-    ]);
     plane.geometry.attributes.uv.array = newUv;
     gui.add(plane.material.uniforms.facColorBurn, "value")
         .min(0)

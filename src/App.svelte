@@ -189,7 +189,7 @@
     );
     planeb.rotateY(Math.PI);
     const parameters = {
-        "Color Burn": 0.34,
+        "Color Burn": 0.36,
         "Color Dodge": 0.1,
         Scale: 79,
         Angle: 4.45,

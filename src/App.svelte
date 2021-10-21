@@ -236,6 +236,7 @@
         const controls = new OrbitControls(camera, canvas);
         const renderer = new WebGLRenderer({
             canvas,
+            antialias: true,
         });
         renderer.toneMapping = NoToneMapping;
 
@@ -245,7 +246,6 @@
         const animate = (time) => {
             material1.uniforms.time.value = time;
             material2.uniforms.time.value = time;
-            thread.rotation.y += 0.001;
             controls.update();
             renderer.render(scene, camera);
             requestAnimationFrame(animate);

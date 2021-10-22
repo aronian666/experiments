@@ -51,6 +51,7 @@
     scene.background = environmentMap;
     const loader = new TextureLoader();
     const image = loader.load("/images/galaxy.jpg");
+    const totoro = loader.load("/images/totoro.jpg");
     const vertexShader = `
         #define PI 3.141592653589793
         varying vec2 vUv;
@@ -83,7 +84,7 @@
             vec2 threadAxis = fract(pingPong);
             vec3 linesRotate = lines(threadAxis, axis);
             vec3 threadsShape = vec3(1.0 - length(threadAxis - 0.5));
-            vec3 displacement = colorBurn(threadsShape, 0.49);
+            vec3 displacement = colorBurn(threadsShape, 0.55);
             displacement = clamp(colorDodge(displacement, facColorDodge) * linesRotate, vec3(0.0), vec3(1.0));
             return displacement;
         }
@@ -93,8 +94,8 @@
             float noise = displacement.x;
             vec3 newPosition = position + normal * noise * 0.2/scale;
             vec4 modelPosition = modelMatrix * vec4(newPosition, 1.0);
-            modelPosition.z += sin(modelPosition.x * 10.0 - time * 0.001) * 0.025;
-            modelPosition.z += sin(modelPosition.y * 5.0 - time * 0.001) * 0.025;
+            modelPosition.z += sin(modelPosition.x * 10.0 - time * 0.001) * 0.01;
+            modelPosition.z += sin(modelPosition.y * 5.0 - time * 0.001) * 0.01;
             vec4 modelFinal = projectionMatrix * viewMatrix * modelPosition;
             gl_Position = modelFinal;
             vUv = axis;
@@ -149,19 +150,27 @@
             //gl_FragColor = vec4(color, alpha.x);
         }
     `;
+    const parameters = {
+        "Color Burn": 0.41,
+        "Color Dodge": 0.1,
+        Scale: 79,
+        Angle: 4.45,
+        Wireframe: false,
+        Totoro: true,
+    };
     const uniform1 = {
-        facColorBurn: { value: 0.34, type: "f" },
-        image: { value: image, type: "t" },
-        scale: { value: 50, type: "f" },
+        facColorBurn: { value: parameters["Color Burn"], type: "f" },
+        image: { value: totoro, type: "t" },
+        scale: { value: parameters["Scale"], type: "f" },
         facColorDodge: { value: 0.1, type: "f" },
         angle: { value: 4.45, type: "f" },
         direction: { value: 0, type: "f" },
         time: { value: 0 },
     };
     const uniform2 = {
-        facColorBurn: { value: 0.34, type: "f" },
-        image: { value: image, type: "t" },
-        scale: { value: 50, type: "f" },
+        facColorBurn: { value: parameters["Color Burn"], type: "f" },
+        image: { value: totoro, type: "t" },
+        scale: { value: parameters["Scale"], type: "f" },
         facColorDodge: { value: 0.1, type: "f" },
         angle: { value: 4.45, type: "f" },
         direction: { value: 1, type: "f" },
@@ -179,23 +188,12 @@
         uniforms: uniform2,
         transparent: true,
     });
-    const plane = new Mesh(
-        new PlaneBufferGeometry(1, 1, 1000, 1000),
-        material1
-    );
-    const planeb = new Mesh(
-        new PlaneBufferGeometry(1, 1, 1000, 1000),
-        material2
-    );
+    const plane = new Mesh(new PlaneBufferGeometry(1, 1, 750, 750), material1);
+    const planeb = new Mesh(new PlaneBufferGeometry(1, 1, 750, 750), material2);
     planeb.rotateY(Math.PI);
-    const parameters = {
-        "Color Burn": 0.36,
-        "Color Dodge": 0.1,
-        Scale: 79,
-        Angle: 4.45,
-    };
+
     gui.add(parameters, "Color Burn")
-        .min(0)
+        .min(0.3)
         .max(1)
         .step(0.01)
         .onChange((value) => {
@@ -225,6 +223,18 @@
         .onChange((value) => {
             material1.uniforms.angle.value = value;
             material2.uniforms.angle.value = value;
+        });
+    gui.add(parameters, "Wireframe")
+        .listen()
+        .onChange((value) => {
+            material1.wireframe = value;
+            material2.wireframe = value;
+        });
+    gui.add(parameters, "Totoro")
+        .listen()
+        .onChange((value) => {
+            material1.uniforms.image.value = value ? totoro : image;
+            material2.uniforms.image.value = value ? totoro : image;
         });
     camera.position.set(0, 0, 1);
     const thread = new Group();

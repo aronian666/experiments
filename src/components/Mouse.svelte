@@ -36,8 +36,6 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
         const animate = () => {
-            //camera.position.x = Math.sin(position.x * Math.PI) * 3;
-            //camera.position.z = Math.cos(position.x * Math.PI) * 3;
             camera.position.y = Math.sin((position.y * Math.PI) / 2) * 3;
             camera.position.z =
                 Math.cos((position.y * Math.PI) / 2) *

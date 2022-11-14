@@ -2,7 +2,6 @@ import { Matrix3, Mesh, MeshBasicMaterial, SphereGeometry, Vector3 } from 'three
 const delta_t = 0.05
 export default class Love extends Mesh {
   #matrix = new Matrix3()
-  
   constructor(position = new Vector3()) {
     super(new SphereGeometry(), new MeshBasicMaterial())
     this.initialPosition = position
@@ -22,7 +21,7 @@ export default class Love extends Mesh {
     this.position.x += velocity.x
     this.position.y += velocity.y
   }
-  moveTime(t){
+  moveTime(t) {
     this.position.x = this.#romeo(t)
     this.position.y = this.#juliet(t)
     return this

@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "dat.gui": "^0.7.7",
+    "quagga": "^0.12.1",
     "sirv-cli": "^1.0.0",
     "stats.js": "^0.17.0",
     "three": "^0.129.0"

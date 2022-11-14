@@ -1,7 +1,7 @@
 import { Mesh, MeshBasicMaterial, SphereGeometry } from "three";
 const gravity = -10
 const mu = - 0.3
-const delta_t = 0.001
+const delta_t = 0.1
 export default class Pendulum extends Mesh {
   constructor(large = 1, theta = 0, theta_dot = 0) {
     super(new SphereGeometry(1, 16, 32), new MeshBasicMaterial())

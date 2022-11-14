@@ -147,6 +147,7 @@
             vec3 alpha = colorDodge(color, 0.99);
             color = clamp(colorDodge(color, facColorDodge) * linesRotate, vec3(0.0), vec3(1.0)) * 0.8;
             gl_FragColor = imageTexture * vec4(color, alpha.x);
+            //gl_FragColor = vec4(color, 1.0);
             //gl_FragColor = vec4(color, alpha.x);
         }
     `;

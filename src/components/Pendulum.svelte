@@ -10,7 +10,7 @@
     100
   );
   const scene = new Scene();
-  let pendulum = new Pendulum(4, Math.PI / 2, Math.PI);
+  let pendulum = new Pendulum(4, 0, Math.PI / 2);
   scene.add(pendulum);
   camera.position.z = 10;
   onMount(() => {
